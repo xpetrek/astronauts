@@ -2,7 +2,6 @@ import axios from "axios";
 import {
   Astronaut,
   AstronautDraft,
-  AstronautsGetResponse,
   Filter,
   Order,
 } from "../utils/types";
@@ -109,7 +108,7 @@ export const backendFetchAstronauts = async ({
   const computedAstronauts = astronauts
     .filter((astronaut) => isFilterSufficient(astronaut, filter))
     .sort(getComparator(order, orderBy));
-  await delay(2000);
+  await delay(1000);
 
   const obj = {
     total: computedAstronauts.length,
@@ -126,9 +125,8 @@ export const backendFetchAstronauts = async ({
 };
 
 export const backendFetchAstronaut = async (id: number) => {
-  const selectedAstronaut = astronauts
-    .filter((astronaut) => astronaut.id === id);
-  await delay(2000);
+  const selectedAstronaut = astronauts.find((astronaut) => astronaut.id === id);
+  await delay(50);
   return selectedAstronaut;
 };
 
@@ -141,7 +139,7 @@ type Props = {
 };
 
 const getAstronauts = async (params: Props) => {
-  const response = await axios.get<AstronautsGetResponse>(`/api/astronauts?\
+  const response = await axios.get(`/api/astronauts?\
   orderBy=${params.orderBy}&\
   order=${params.order}&\
   page=${params.page}&\
@@ -152,17 +150,14 @@ const getAstronauts = async (params: Props) => {
   superpower=${params.filter.superpower}`);
   return response.data;
 };
-const getAstronaut = (id: number) =>
-  axios.get<Astronaut>(`/api/astronauts/${id}`);
+const getAstronaut = (id: number) => axios.get(`/api/astronauts/${id}`);
 
-const putAstronaut = (id: number) =>
-  axios.put<Astronaut>(`/api/astronauts/${id}`);
+const putAstronaut = (astronaut: Astronaut) => axios.put(`/api/astronauts/${astronaut.id}`, astronaut);
 
 const newAstronaut = (astronaut: AstronautDraft) =>
-  axios.post<Astronaut>("/api/astronauts", astronaut);
+  axios.post("/api/astronauts", astronaut);
 
-const deleteAstronaut = (id: number) =>
-  axios.delete<Astronaut>(`/api/astronauts/${id}`);
+const deleteAstronaut = (id: number) => axios.delete(`/api/astronauts/${id}`);
 
 export const useAstronauts = {
   getAstronauts,

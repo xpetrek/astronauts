@@ -26,7 +26,7 @@ export const CustomAppBar = ({ open, handleDrawerOpen }: Props) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
+          Astronauts database
         </Typography>
       </Toolbar>
     </CustomAppBarStyled>

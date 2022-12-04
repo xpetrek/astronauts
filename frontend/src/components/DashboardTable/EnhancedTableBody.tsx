@@ -90,7 +90,7 @@ export const EnhancedTableBody = ({
               sx={{ display: "flex", flexDirection: "row" }}
             >
               <Link
-                state={{ data: astronaut }}
+                state={{ data: astronaut, edited: false }}
                 to={`/astronaut/${astronaut.id}`}
               >
                 <Button sx={{ borderRadius: "100%" }}>
@@ -98,8 +98,8 @@ export const EnhancedTableBody = ({
                 </Button>
               </Link>
               <Link
-                state={{ data: astronaut }}
-                to={`/editAstronaut/${astronaut.id}`}
+                state={{ data: astronaut, edited: true }}
+                to={`/astronaut/${astronaut.id}`}
               >
                 <Button sx={{ borderRadius: "100%" }}>
                   <EditIcon />

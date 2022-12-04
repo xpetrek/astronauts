@@ -1,4 +1,4 @@
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -7,8 +7,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Groups2Icon from "@mui/icons-material/Groups2";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -17,8 +15,7 @@ import Person from "@mui/icons-material/Person";
 
 import { CustomDrawerStyled } from "./CustomDrawerStyled";
 import { Link } from "react-router-dom";
-import { useMemo } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { FemaleAvatarSvg } from "../FemaleAvatarSvg";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -37,12 +34,12 @@ const navigationItems = [
     link: "/astronautsDashboard",
     icon: <Groups2Icon />,
   },
-  { label: "New astronaut", link: "/newAstronaut", icon: <PersonAddIcon /> },
+  { label: "New astronaut", link: "/astronaut", icon: <PersonAddIcon /> },
 ];
 
 const profileItems = [
-  { label: "Edit profile", link: "/", icon: <Person /> },
-  { label: "Logout", link: "/", icon: <LogoutIcon /> },
+  { label: "Edit profile", link: "/development", icon: <Person /> },
+  { label: "Logout", link: "/development", icon: <LogoutIcon /> },
 ];
 
 const getListButton = (
@@ -115,31 +112,6 @@ export const CustomDrawer = ({ open, handleDrawerClose }: Props) => {
         <Box sx={{ flexGrow: 2 }} />
       </Box>
       <List>{getListButton(open, profileItems)}</List>
-      {/*
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
     </CustomDrawerStyled>
   );
 };

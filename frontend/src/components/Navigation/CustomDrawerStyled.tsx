@@ -4,6 +4,7 @@ import MuiDrawer from "@mui/material/Drawer";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
+  background: theme.palette.grey[100],
   width: drawerWidth,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -15,6 +16,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
+  background: theme.palette.grey[100],
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -31,6 +33,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 export const CustomDrawerStyled = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
+  background: "black",
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ColorPalette } from "../utils/types";
+import { ColorPalette } from "../../utils/types";
 
 type Props = {
   colorPalette: ColorPalette;
