@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Dashboard } from "../components/Dashboard/Dashboard";
+import { Dashboard } from "../components/Dashboard";
 
 export const AstronautsDashboard = () => {
   return (

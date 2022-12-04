@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
-import { NumberLiteralType } from "typescript";
-
 import {
   Astronaut,
   AstronautDraft,
@@ -126,6 +123,13 @@ export const backendFetchAstronauts = async ({
   };
 
   return obj;
+};
+
+export const backendFetchAstronaut = async (id: number) => {
+  const selectedAstronaut = astronauts
+    .filter((astronaut) => astronaut.id === id);
+  await delay(2000);
+  return selectedAstronaut;
 };
 
 type Props = {

@@ -11,15 +11,19 @@ import {
 import { ColorResult, SketchPicker } from "react-color";
 
 import { AstronautColorSvg } from "../components/AstronautColorSvg";
-import { AstronautDraft, ColorPalette } from "../utils/types";
+import { Astronaut, AstronautDraft, ColorPalette } from "../utils/types";
 import { useAstronauts } from "../hooks/useAstronauts";
+import { useLocation } from "react-router-dom";
 
 export const EditAstronaut = () => {
+  const location = useLocation();
+  const data: Astronaut = location.state?.data;
+  
   const [astronaut, setAstronaut] = useState<AstronautDraft>({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    superpower: "",
+    firstName: data.firstName ?? "",
+    lastName: data.lastName ?? "",
+    dateOfBirth: data.dateOfBirth ?? "",
+    superpower: data.superpower ?? "",
   });
   const [color, setColor] = useState("");
   const [isHelmDown, setIsHelmDown] = useState(false);
@@ -53,10 +57,6 @@ export const EditAstronaut = () => {
   const handleCreateAstronaut = () => {
     useAstronauts.newAstronaut(astronaut);
   };
-  
-  const handleChangeFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {};
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAstronaut((old) => ({ ...old, [e.target.name]: e.target.value }));
@@ -132,24 +132,28 @@ export const EditAstronaut = () => {
           <Box>
             <TextField
               name="firstName"
+              value={astronaut.firstName}
               sx={{ width: "100%", paddingTop: "5px" }}
               label={"First Name"}
               onChange={handleInputChange}
             />
             <TextField
               name="lastName"
+              value={astronaut.lastName}
               sx={{ width: "100%", paddingTop: "5px" }}
               label={"Last Name"}
               onChange={handleInputChange}
             />
             <TextField
               name="dateOfBirth"
+              value={astronaut.dateOfBirth}
               sx={{ width: "100%", paddingTop: "5px" }}
               label={"Date of birth"}
               onChange={handleInputChange}
             />
             <TextField
               name="superpower"
+              value={astronaut.superpower}
               sx={{ width: "100%", paddingTop: "5px" }}
               label={"Superpower"}
               onChange={handleInputChange}
