@@ -112,7 +112,7 @@ export const backendFetchAstronauts = async ({
   const computedAstronauts = astronauts
     .filter((astronaut) => isFilterSufficient(astronaut, filter))
     .sort(getComparator(order, orderBy));
-  await delay(1000);
+  await delay(2000);
 
   const obj = {
     total: computedAstronauts.length,
