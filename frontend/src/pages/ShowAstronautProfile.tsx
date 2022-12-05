@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
-import { Astronaut, AstronautDraft, ColorPalette } from "../utils/types";
+import { Astronaut } from "../utils/types";
 import { backendFetchAstronaut, useAstronauts } from "../hooks/useAstronauts";
 import { useLocation, useParams } from "react-router-dom";
 import { AstronautProfile } from "../components/Astronaut/AstronautProfile";
