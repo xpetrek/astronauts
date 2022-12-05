@@ -1,6 +1,6 @@
 import { Astronaut } from "../../utils/types";
 
-interface HeadCell {
+type HeadCell = {
   disablePadding: boolean;
   id: keyof Astronaut;
   label: string;

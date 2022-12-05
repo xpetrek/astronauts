@@ -24,7 +24,7 @@ export const ShowAstronautProfile = () => {
 
   useEffect(() => {
     if (passedData === undefined && id !== undefined)
-      backendFetchAstronaut(parseInt(id)).then((data) => {
+      useAstronauts.getAstronaut(parseInt(id)).then((data: any) => {
         if (data !== undefined)
           setAstronaut({
             id: data.id,
@@ -39,16 +39,18 @@ export const ShowAstronautProfile = () => {
 
   const handleEditAstronaut = () => {
     useAstronauts.putAstronaut(astronaut);
+    setIsBeingEdited(false);
   };
 
   const handleCreateAstronaut = () => {
+    console.log("created");
     useAstronauts.newAstronaut(astronaut);
+    setIsBeingEdited(false);
   };
-  console.log(astronaut.id);
   return (
     <>
       <Typography variant="h1">
-        {astronaut.firstName !== ""
+        {astronaut.id > 0
           ? `${astronaut.firstName} ${astronaut.lastName}`
           : "New astronaut"}
       </Typography>

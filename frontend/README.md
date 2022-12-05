@@ -12,7 +12,7 @@ $ yarn start
 The app runs in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Edit the file frontend/utils/axiosBackendConfig.ts to use correct routes for the deployed backend which can be ran both locally or deployed on the server.
+Edit the file frontend/hooks/useAstronauts.ts to use correct routes for the deployed backend which can be ran both locally or deployed on the server.
 
 For deployment the app can be build with the command:
 

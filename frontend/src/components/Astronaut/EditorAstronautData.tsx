@@ -7,7 +7,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { ColorResult, SketchPicker } from "react-color";
-import { Astronaut, ColorPalette } from "../../utils/types";
+
+import { Astronaut, AstronautDraft, ColorPalette } from "../../utils/types";
+
+import { astronautForm } from "./astronautForm";
 
 type Props = {
   isHelmDown: boolean;
@@ -35,11 +38,14 @@ export const EditorAstronautData = ({
   setAstronaut,
   handleCreateOrEditAstronaut,
 }: Props) => {
-  const [dateOfBirthValidation, setDateOfBirthValidation] = useState(true);
+  const [isFormValid, setIsFormValid] = useState({
+    firstName: true,
+    lastName: true,
+    superpower: true,
+    dateOfBirth: true,
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === "dateOfBirth")
-      setDateOfBirthValidation(checkDateOfBirth);
     setAstronaut((old) => ({ ...old, [e.target.name]: e.target.value }));
   };
 
@@ -48,9 +54,30 @@ export const EditorAstronautData = ({
     setColorPalette((old) => ({ ...old, [currentPart]: pickedColor.hex }));
   };
 
-  const checkDateOfBirth = () => {
-    const dateReg = /^\d{2}([.])\d{2}\1\d{4}$/;
-    return !dateReg.test(astronaut.dateOfBirth);
+  const checkStringInputs = (key: keyof AstronautDraft) => {
+    if (key === "dateOfBirth") {
+      const dateReg = /^\d{2}([.])\d{2}\1\d{4}$/;
+      setIsFormValid((old) => ({
+        ...old,
+        dateOfBirth: dateReg.test(astronaut.dateOfBirth),
+      }));
+    } else {
+      const isFaulty = astronaut[key] === "" || astronaut[key].length > 25;
+      setIsFormValid((old) => ({
+        ...old,
+        [key]: !isFaulty,
+      }));
+    }
+  };
+
+  const submitIfValid = () => {
+    if (
+      isFormValid.firstName &&
+      isFormValid.lastName &&
+      isFormValid.superpower &&
+      isFormValid.dateOfBirth
+    )
+      handleCreateOrEditAstronaut();
   };
 
   return (
@@ -84,35 +111,18 @@ export const EditorAstronautData = ({
         <SketchPicker width="50%" color={color} onChange={handleChangeColor} />
       </Box>
       <Box>
-        <TextField
-          name="firstName"
-          value={astronaut.firstName}
-          sx={{ width: "100%", paddingTop: "5px" }}
-          label={"First Name"}
-          onChange={handleInputChange}
-        />
-        <TextField
-          name="lastName"
-          value={astronaut.lastName}
-          sx={{ width: "100%", paddingTop: "5px" }}
-          label={"Last Name"}
-          onChange={handleInputChange}
-        />
-        <TextField
-          name="dateOfBirth"
-          value={astronaut.dateOfBirth}
-          sx={{ width: "100%", paddingTop: "5px" }}
-          label={"Date of birth"}
-          error={dateOfBirthValidation}
-          onChange={handleInputChange}
-        />
-        <TextField
-          name="superpower"
-          value={astronaut.superpower}
-          sx={{ width: "100%", paddingTop: "5px" }}
-          label={"Superpower"}
-          onChange={handleInputChange}
-        />
+        {astronautForm.map((inputAttr) => (
+          <TextField
+            name={inputAttr.id}
+            value={astronaut[inputAttr.id]}
+            sx={{ width: "100%", marginTop: "10px" }}
+            label={inputAttr.label}
+            onChange={handleInputChange}
+            error={!isFormValid[inputAttr.id]}
+            onBlur={() => checkStringInputs(inputAttr.id)}
+            helperText={!isFormValid[inputAttr.id] ? inputAttr.helperText : ""}
+          />
+        ))}
       </Box>
       <Box
         sx={{
@@ -132,7 +142,7 @@ export const EditorAstronautData = ({
           }
           label="Helmet"
         />
-        <Button variant="contained" onClick={handleCreateOrEditAstronaut}>
+        <Button variant="contained" onClick={submitIfValid}>
           {astronaut.id > 0 ? "Edit astronaut" : "Create astronaut"}
         </Button>
       </Box>

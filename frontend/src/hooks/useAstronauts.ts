@@ -150,7 +150,7 @@ const getAstronauts = async (params: Props) => {
   superpower=${params.filter.superpower}`);
   return response.data;
 };
-const getAstronaut = (id: number) => axios.get(`/api/astronauts/${id}`);
+const getAstronaut = (id: number) => axios.get<Astronaut>(`/api/astronauts/${id}`);
 
 const putAstronaut = (astronaut: Astronaut) => axios.put(`/api/astronauts/${astronaut.id}`, astronaut);
 

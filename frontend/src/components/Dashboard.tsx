@@ -38,20 +38,21 @@ export const Dashboard = () => {
     useQuery<AstronautsGetResponse>(
       ["/astronauts", { page, order, orderBy, rowsPerPage, filter }],
       () =>
-        backendFetchAstronauts({
+        // Mockup method for use without DB
+        // backendFetchAstronauts({
+        //   order,
+        //   orderBy,
+        //   page,
+        //   rowsPerPage,
+        //   filter,
+        // }),
+        useAstronauts.getAstronauts({
           order,
           orderBy,
           page,
           rowsPerPage,
           filter,
         }),
-      // useAstronauts.getAstronauts({
-      //   order,
-      //   orderBy,
-      //   page,
-      //   rowsPerPage,
-      //   filter,
-      // }),
       { keepPreviousData: true }
     );
 
