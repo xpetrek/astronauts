@@ -15,12 +15,12 @@ def create_app():
     CORS(app) 
 
     ###### configs ########
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-dimensional-76949'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-    app.config['SECRET_KEY'] = 'qwertyuiopasdfghjklzxcvbnm'
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+    # app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-dimensional-76949'
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    # app.config['SECRET_KEY'] = 'qwertyuiopasdfghjklzxcvbnm'
+    # app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     ###### init extensions ########
     db.init_app(app)

@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
+import { useState } from "react";
 import { ColorResult, SketchPicker } from "react-color";
 import { Astronaut, ColorPalette } from "../../utils/types";
 
@@ -34,13 +35,22 @@ export const EditorAstronautData = ({
   setAstronaut,
   handleCreateOrEditAstronaut,
 }: Props) => {
+  const [dateOfBirthValidation, setDateOfBirthValidation] = useState(true);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "dateOfBirth")
+      setDateOfBirthValidation(checkDateOfBirth);
     setAstronaut((old) => ({ ...old, [e.target.name]: e.target.value }));
   };
 
   const handleChangeColor = (pickedColor: ColorResult) => {
     setColor(pickedColor.hex);
     setColorPalette((old) => ({ ...old, [currentPart]: pickedColor.hex }));
+  };
+
+  const checkDateOfBirth = () => {
+    const dateReg = /^\d{2}([.])\d{2}\1\d{4}$/;
+    return !dateReg.test(astronaut.dateOfBirth);
   };
 
   return (
@@ -93,6 +103,7 @@ export const EditorAstronautData = ({
           value={astronaut.dateOfBirth}
           sx={{ width: "100%", paddingTop: "5px" }}
           label={"Date of birth"}
+          error={dateOfBirthValidation}
           onChange={handleInputChange}
         />
         <TextField
